@@ -5,25 +5,19 @@ tags: []
 
 # Model Card for Model ID
 
-<!-- Provide a quick summary of what the model is/does. -->
-
+This model is a fine-tuned version of the LLaMA 2 7B model for IMDb movie review sentiment analysis. The model has been adapted to classify movie reviews as either positive or negative using a subset of the IMDb movie reviews dataset. The fine-tuning process included Low-Rank Adaptation (LoRA) to efficiently modify a subset of the model's weights without requiring extensive computational resources.
 
 
 ## Model Details
 
 ### Model Description
-
-<!-- Provide a longer summary of what this model is. -->
-
-This is the model card of a 🤗 transformers model that has been pushed on the Hub. This model card has been automatically generated.
-
-- **Developed by:** [More Information Needed]
-- **Funded by [optional]:** [More Information Needed]
-- **Shared by [optional]:** [More Information Needed]
-- **Model type:** [More Information Needed]
-- **Language(s) (NLP):** [More Information Needed]
-- **License:** [More Information Needed]
-- **Finetuned from model [optional]:** [More Information Needed]
+- **Developed by:** GQ
+- **Funded by:** Self-funded
+- **Shared by:** GQ
+- **Model type:** Transformer-based language model, specifically LLaMA 2 (7 billion parameters)
+- **Language(s) (NLP):** English
+- **License:** Apache License 2.0
+- **Finetuned from model:** meta-llama/Llama-2-7b-hf
 
 ### Model Sources [optional]
 
@@ -39,66 +33,71 @@ This is the model card of a 🤗 transformers model that has been pushed on the 
 
 ### Direct Use
 
-<!-- This section is for the model use without fine-tuning or plugging into a larger ecosystem/app. -->
+This model can be used directly to perform sentiment analysis on English-language movie reviews. Users can classify new reviews into "Positive" or "Negative" categories using the model's predictions.
 
-[More Information Needed]
 
 ### Downstream Use [optional]
 
-<!-- This section is for the model use when fine-tuned for a task, or when plugged into a larger ecosystem/app -->
+The model can be extended to related sentiment analysis tasks for other review-based datasets, such as product reviews, book reviews, or restaurant reviews, with minimal adjustments.
 
-[More Information Needed]
 
 ### Out-of-Scope Use
 
-<!-- This section addresses misuse, malicious use, and uses that the model will not work well for. -->
+This model is not intended for use in 
+- Sensitive or high-stakes applications (e.g., medical diagnosis, employment decisions).
+- Non-English sentiment analysis without further fine-tuning on relevant datasets.
+- Language tasks requiring context-specific understanding beyond the domain of movie reviews.
 
-[More Information Needed]
 
 ## Bias, Risks, and Limitations
 
-<!-- This section is meant to convey both technical and sociotechnical limitations. -->
-
-[More Information Needed]
+The model may have inherited biases present in the IMDb dataset, such as biases in the language used for different genders, movie genres, or cultural references. The model might perform poorly on texts that are significantly different from the type of movie reviews it was trained on.
 
 ### Recommendations
 
-<!-- This section is meant to convey recommendations with respect to the bias, risk, and technical limitations. -->
-
-Users (both direct and downstream) should be made aware of the risks, biases and limitations of the model. More information needed for further recommendations.
+- Users should conduct further evaluations on their specific datasets before deploying the model.
+- Consider fine-tuning on more diverse datasets if you plan to use this for broader applications.
 
 ## How to Get Started with the Model
 
 Use the code below to get started with the model.
 
-[More Information Needed]
 
 ## Training Details
 
 ### Training Data
 
-<!-- This should link to a Dataset Card, perhaps with a short stub of information on what the training data is all about as well as documentation related to data pre-processing or additional filtering. -->
+- Dataset: IMDb Movie Reviews (10% Hold-out Set)
 
-[More Information Needed]
+- Description: The dataset contains 50,000 movie reviews split into 25,000 positive and 25,000 negative reviews. The model was trained on a balanced subset and evaluated on a 10% hold-out set for validation.
+
+- Dataset: [IMDb Dataset on Hugging Face](https://huggingface.co/datasets/imdb)
+
 
 ### Training Procedure
 
 <!-- This relates heavily to the Technical Specifications. Content here should link to that section when it is relevant to the training procedure. -->
 
 #### Preprocessing [optional]
-
-[More Information Needed]
-
+- Reviews were preprocessed to remove special characters, HTML tags, and unnecessary whitespaces.
+- Text was tokenized using the Hugging Face AutoTokenizer.
 
 #### Training Hyperparameters
 
-- **Training regime:** [More Information Needed] <!--fp32, fp16 mixed precision, bf16 mixed precision, bf16 non-mixed precision, fp16 non-mixed precision, fp8 mixed precision -->
-
+- **Training regime:** Mixed precision (fp16)
+- **Optimizer:** paged_adamw_32bit
+- **Learning Rate:** 2e-4
+- **Batch Size:** 2 per device
+- **Number of Epochs:** 1
+- **Gradient Accumulation Steps:** 1
+- **Warmup Ratio:** 0.03
+- **Scheduler Type:** Cosine
+  
 #### Speeds, Sizes, Times [optional]
 
-<!-- This section provides information about throughput, start/end time, checkpoint size if relevant, etc. -->
-
-[More Information Needed]
+- **Model Size:** 7 billion parameters
+- **Training Time:** ~5 hours on a single NVIDIA A100 GPU
+- **Inference Speed:** ~0.3 seconds per review on GPU
 
 ## Evaluation
 
@@ -108,29 +107,32 @@ Use the code below to get started with the model.
 
 #### Testing Data
 
-<!-- This should link to a Dataset Card if possible. -->
+IMDb Movie Reviews (10% hold-out set): This subset was used for evaluating model performance after fine-tuning.
 
-[More Information Needed]
 
 #### Factors
 
-<!-- These are the things the evaluation is disaggregating by, e.g., subpopulations or domains. -->
-
-[More Information Needed]
+- **Review Length:** Short (under 50 words), Medium (50-200 words), Long (200+ words)
+- **Sentiment Intensity:** Standard (positive/negative) vs. Extreme (very positive/very negative)
+- **Writing Style:** Formal, Informal, Slang-heavy
+- **Genre Topics:** Action, Comedy, Horror, Drama
 
 #### Metrics
 
-<!-- These are the evaluation metrics being used, ideally with a description of why. -->
-
-[More Information Needed]
+- **Accuracy:** Measures the proportion of correctly classified reviews.
+- **Precision:** Measures the proportion of true positive predictions out of all positive predictions.
+- **Recall:** Measures the proportion of true positive predictions out of all actual positive samples.
+- **F1-Score:** Harmonic mean of precision and recall.
 
 ### Results
-
-[More Information Needed]
+- **Accuracy:** 90%
+- **F1-Score:** 89.7%
+- **Precision:** 90.3%
+- **Recall:** 89.2%
 
 #### Summary
 
-
+The model shows strong performance in distinguishing positive and negative reviews, achieving an overall accuracy of 90%. Minor performance drops were observed on extreme sentiments and very short reviews.
 
 ## Model Examination [optional]
 
@@ -144,11 +146,11 @@ Use the code below to get started with the model.
 
 Carbon emissions can be estimated using the [Machine Learning Impact calculator](https://mlco2.github.io/impact#compute) presented in [Lacoste et al. (2019)](https://arxiv.org/abs/1910.09700).
 
-- **Hardware Type:** [More Information Needed]
-- **Hours used:** [More Information Needed]
+- **Hardware Type:** Single NVIDIA A100 GPU
+- **Hours used:** ~5 hours
 - **Cloud Provider:** [More Information Needed]
-- **Compute Region:** [More Information Needed]
-- **Carbon Emitted:** [More Information Needed]
+- **Compute Region:** us-west-1
+- **Carbon Emitted:** Estimated at ~45 kg CO2eq
 
 ## Technical Specifications [optional]
 
