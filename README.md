@@ -19,13 +19,6 @@ This model is a fine-tuned version of the LLaMA 2 7B model for IMDb movie review
 - **License:** Apache License 2.0
 - **Finetuned from model:** meta-llama/Llama-2-7b-hf
 
-### Model Sources [optional]
-
-<!-- Provide the basic links for the model. -->
-
-- **Repository:** [More Information Needed]
-- **Paper [optional]:** [More Information Needed]
-- **Demo [optional]:** [More Information Needed]
 
 ## Uses
 
