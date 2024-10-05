@@ -134,12 +134,6 @@ IMDb Movie Reviews (10% hold-out set): This subset was used for evaluating model
 
 The model shows strong performance in distinguishing positive and negative reviews, achieving an overall accuracy of 90%. Minor performance drops were observed on extreme sentiments and very short reviews.
 
-## Model Examination [optional]
-
-<!-- Relevant interpretability work for the model goes here -->
-
-[More Information Needed]
-
 ## Environmental Impact
 
 <!-- Total emissions (in grams of CO2eq) and additional considerations, such as electricity usage, go here. Edit the suggested text below accordingly -->
@@ -152,50 +146,3 @@ Carbon emissions can be estimated using the [Machine Learning Impact calculator]
 - **Compute Region:** us-west-1
 - **Carbon Emitted:** Estimated at ~45 kg CO2eq
 
-## Technical Specifications [optional]
-
-### Model Architecture and Objective
-
-[More Information Needed]
-
-### Compute Infrastructure
-
-[More Information Needed]
-
-#### Hardware
-
-[More Information Needed]
-
-#### Software
-
-[More Information Needed]
-
-## Citation [optional]
-
-<!-- If there is a paper or blog post introducing the model, the APA and Bibtex information for that should go in this section. -->
-
-**BibTeX:**
-
-[More Information Needed]
-
-**APA:**
-
-[More Information Needed]
-
-## Glossary [optional]
-
-<!-- If relevant, include terms and calculations in this section that can help readers understand the model or model card. -->
-
-[More Information Needed]
-
-## More Information [optional]
-
-[More Information Needed]
-
-## Model Card Authors [optional]
-
-[More Information Needed]
-
-## Model Card Contact
-
-[More Information Needed]
